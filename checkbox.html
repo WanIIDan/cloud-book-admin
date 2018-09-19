@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .item:checked {
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" class="item">
+    <button id="btn">存储数据</button>
+    <button id="btn1">取数据</button>
+    <button id="btn2">移除数据</button>
+</body>
+<script>
+    var btn = document.getElementById('btn')
+    var btn1 = document.getElementById('btn1')
+    var btn2 = document.getElementById('btn2')
+    btn.onclick = function(){
+        // 不移除就永久存在
+        localStorage.setItem('sex', 'man')
+        // 关闭页面时数据丢失
+        sessionStorage.setItem('age', '20')
+    }
+    btn1.onclick = function(){
+        let info = localStorage.getItem('sex')
+        console.log(info)
+    }
+    btn2.onclick = function(){
+        localStorage.removeItem('sex')
+    }
+</script>
+</html>

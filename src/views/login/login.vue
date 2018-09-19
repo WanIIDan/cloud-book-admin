@@ -10,11 +10,11 @@
                 <el-form-item label="密码：" prop="password">
                     <el-input v-model="formData.password" type="password" 
                         placeholder="请输入密码" 
-                        @keyup.enter.native="handleLogin"
+                        @keyup.enter.native="validateLogin"
                     ></el-input>
                 </el-form-item>
             </el-form>
-            <el-button class="login-btn" @click="handleLogin" type="primary" :loading="isLoading">登录</el-button>
+            <el-button class="login-btn" @click="validateLogin" type="primary" :loading="isLoading">登录</el-button>
         </div>
     </div>
 </template>
@@ -56,6 +56,7 @@
                 this.$axios.post('/login',this.formData).then(res=>{
                     console.log(res)
                     if(res.code == 200) {
+                        this.$store.commit('CHANGE_USERINFO', res.data)
                         this.$message.success('登录成功')
                         setTimeout(()=>{
                             this.$router.push('/layout/index')
@@ -67,16 +68,16 @@
                 }).catch(err=>{
                     console.log(err)
                 })
+            },
+            validateLogin() {
+                this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        this.handleLogin()
+                    } else {
+                        return false;
+                    }
+                })
             }
-            // validateLogin() {
-            //     this.$refs['from'].validate((valid) => {
-            //         if (valid) {
-            //             this.handleLogin()
-            //         } else {
-            //             return false;
-            //         }
-            //     })
-            // }
         }
     }
 </script>
