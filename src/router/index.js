@@ -10,7 +10,8 @@ const components = {
   users: ()=>import('@/views/users/index'),
   uploadDemo: ()=>import('@/views/uploadDemo/index'),
   userEdit: ()=>import('@/views/userEdit/index'),
-  addUser: ()=>import('@/views/addUser/index')
+  addUser: ()=>import('@/views/addUser/index'),
+  addBook: ()=>import('@/views/book/addBook')
 }
 
 export default new Router({
@@ -62,8 +63,14 @@ export default new Router({
             title: '添加管理员'
           },
           component: components.addUser
+        },
+        {
+          path: 'addBook',
+          meta: {
+            title: '添加图书'
+          },
+          component: components.addBook
         }
-
       ]
     }
   ]
