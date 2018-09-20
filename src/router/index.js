@@ -10,8 +10,13 @@ const components = {
   users: ()=>import('@/views/users/index'),
   uploadDemo: ()=>import('@/views/uploadDemo/index'),
   userEdit: ()=>import('@/views/userEdit/index'),
+  userDetail: ()=>import('@/views/users/userDetail'),
   addUser: ()=>import('@/views/addUser/index'),
-  addBook: ()=>import('@/views/book/addBook')
+  swipers: ()=>import('@/views/swiper/index'),
+  addSwiper: ()=>import('@/views/swiper/addSwiper'),
+  editSwiper: ()=>import('@/views/swiper/editSwiper'),
+  addBook: ()=>import('@/views/book/addBook'),
+  books: ()=>import('@/views/book/index')
 }
 
 export default new Router({
@@ -58,6 +63,14 @@ export default new Router({
           component: components.userEdit
         },
         {
+          path: 'userDetail',
+          name: 'userDetail',
+          meta: {
+            title: '用户信息'
+          },
+          component: components.userDetail
+        },
+        {
           path: 'addUser',
           meta: {
             title: '添加管理员'
@@ -65,12 +78,42 @@ export default new Router({
           component: components.addUser
         },
         {
+          path: 'swipers',
+          meta: {
+            title: '轮播图管理页面'
+          },
+          component: components.swipers
+        },
+        {
+          path: 'addSwiper',
+          name: 'addSwiper',
+          meta: {
+            title: '添加轮播图'
+          },
+          component: components.addSwiper
+        },
+        {
+          path: 'editSwiper',
+          name: 'editSwiper',
+          meta: {
+            title: '编辑轮播图'
+          },
+          component: components.editSwiper
+        },
+        {
           path: 'addBook',
           meta: {
             title: '添加图书'
           },
           component: components.addBook
-        }
+        },
+        {
+          path: 'books',
+          meta: {
+            title: '图书管理页面'
+          },
+          component: components.books
+        },
       ]
     }
   ]

@@ -3,44 +3,47 @@
         <div class="breadcrumb">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to="{ path: '/layout/index' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+                <el-breadcrumb-item>轮播图管理</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
         <el-table :data="tableData" border>
             <el-table-column
-                prop="nickname"
-                label="昵称"
-                width="150">
-            </el-table-column>
-            <el-table-column
-                prop="createdTime"
-                label="日期"
-                width="220">
-            </el-table-column>
-            <el-table-column
-                prop="desc"
-                label="个性签名"
-                width="400">
-            </el-table-column>
-            <el-table-column
-                prop="avatar"
-                label="头像"
+                prop="img"
+                label="轮播图头图"
                 width="200">
                 <template slot-scope="scope">
-                    <img :src="scope.row.avatar" class="avatar">
+                    <img :src="scope.row.img" class="img">
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="300">
+            <el-table-column
+                prop="title"
+                label="轮播图标题"
+                width="300">
+            </el-table-column>
+            <el-table-column
+                prop="book.img"
+                label="图书头图"
+                width="200">
+                <template slot-scope="scope">
+                    <img :src="scope.row.book.img" class="img">
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="book.title"
+                label="图书"
+                width="300">
+            </el-table-column>
+            <el-table-column label="操作" width="250">
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="handleDetails(scope.row._id)">查看详情
+                        @click="edit(scope.row._id)">编辑
                     </el-button>
                     <el-button
                         size="mini"
                         type="danger"
-                        @click="handleDelete(scope.row._id)">删除
+                        @click="deleteSwiper(scope.row._id)">删除
                     </el-button>
                 </template>
             </el-table-column>
@@ -66,25 +69,28 @@
         },
         methods: {
             getData() {
-                this.$axios.get('/user',{pn: this.page}).then(res=>{
+                this.$axios.get('/swiper',{pn: this.page}).then(res=>{
                     if(res.code == 200){
                         this.count = res.count
                         this.tableData = res.data
                     }
                 })
             },
-            handleDetails(id) {
-                this.$router.push({name: 'userDetail', query: {id}})
+            edit(id) {
+                this.$router.push({name: 'editSwiper', query: {id}})
             },
-            handleDelete(id) {
-                this.$confirm('此操作将删除一位管理员, 是否继续?', '警告', {
+            deleteSwiper(id) {
+                this.$confirm('此操作将删除该轮播图, 是否继续?', '警告', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$axios.post('/user/delete', {userIds: [id]}).then(res=>{
-                        this.$message.success(res.msg)
-                        this.getData()
+                    this.$axios.post('/swiper/delete', {ids: [id]}).then(res=>{
+                        console.log(res)
+                        if(res.code == 200){
+                            this.$message.success(res.msg)
+                            this.getData()
+                        }
                     })
                 }).catch(() => {
                     this.$message({
@@ -110,9 +116,9 @@
             margin: 15px 0;
         }
 
-        .avatar {
-            width: 60px;
-            height: 60px;
+        .img {
+            width: 80px;
+            height: 100px;
         }
     }
 </style>

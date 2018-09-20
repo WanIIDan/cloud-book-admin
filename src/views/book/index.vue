@@ -3,39 +3,47 @@
         <div class="breadcrumb">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to="{ path: '/layout/index' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+                <el-breadcrumb-item>图书管理</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
         <el-table :data="tableData" border>
             <el-table-column
-                prop="nickname"
-                label="昵称"
+                prop="title"
+                label="书名"
+                width="240">
+            </el-table-column>
+            <el-table-column
+                prop="author"
+                label="作者"
                 width="150">
             </el-table-column>
             <el-table-column
-                prop="createdTime"
-                label="日期"
-                width="220">
+                prop="type.title"
+                label="分类"
+                width="150">
             </el-table-column>
             <el-table-column
                 prop="desc"
-                label="个性签名"
+                label="简介"
                 width="400">
-            </el-table-column>
-            <el-table-column
-                prop="avatar"
-                label="头像"
-                width="200">
                 <template slot-scope="scope">
-                    <img :src="scope.row.avatar" class="avatar">
+                    <span v-text="scope.row.desc" class="desc"></span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="300">
+            <el-table-column
+                prop="img"
+                label="书籍头图"
+                width="150">
+                <template slot-scope="scope">
+                    <img :src="scope.row.img" class="avatar">
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="handleDetails(scope.row._id)">查看详情
+                        @click="handleDetails">查看详情
                     </el-button>
                     <el-button
                         size="mini"
@@ -66,23 +74,23 @@
         },
         methods: {
             getData() {
-                this.$axios.get('/user',{pn: this.page}).then(res=>{
+                this.$axios.get('/book',{pn: this.page}).then(res=>{
                     if(res.code == 200){
                         this.count = res.count
                         this.tableData = res.data
                     }
                 })
             },
-            handleDetails(id) {
-                this.$router.push({name: 'userDetail', query: {id}})
+            handleDetails() {
+                this.$router.push('/layout/bookdetails')
             },
             handleDelete(id) {
-                this.$confirm('此操作将删除一位管理员, 是否继续?', '警告', {
+                this.$confirm('此操作将删除一本书, 是否继续?', '警告', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$axios.post('/user/delete', {userIds: [id]}).then(res=>{
+                    this.$axios.post('/book/delete', {ids: [id]}).then(res=>{
                         this.$message.success(res.msg)
                         this.getData()
                     })
@@ -111,8 +119,15 @@
         }
 
         .avatar {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 100px;
+        }
+
+        .desc {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3; 
+            overflow: hidden;
         }
     }
 </style>
