@@ -1,41 +1,54 @@
 <template>
-    <div class="user-manage">
+    <div class="category-manage">
         <div class="breadcrumb">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to="{ path: '/layout/index' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+                <el-breadcrumb-item>分类详情</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
+        <!-- <h3>分类详情</h3> -->
         <el-table :data="tableData" border>
             <el-table-column
-                prop="nickname"
-                label="昵称"
+                prop="img"
+                label="头像"
+                width="180">
+                <template slot-scope="scope">
+                    <img :src="scope.row.icon" class="avatar">
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="title"
+                label="类名"
+                width="240">
+            </el-table-column>
+            <el-table-column
+                prop="_id"
+                label="typeId"
+                width="300">
+            </el-table-column>
+            <el-table-column
+                prop="index"
+                label="index"
                 width="150">
             </el-table-column>
             <el-table-column
-                prop="createdTime"
-                label="日期"
-                width="220">
-            </el-table-column>
-            <el-table-column
-                prop="desc"
-                label="个性签名"
-                width="400">
-            </el-table-column>
-            <el-table-column
-                prop="avatar"
-                label="头像"
-                width="200">
+                label="书的数量"
+                width="150">
                 <template slot-scope="scope">
-                    <img :src="scope.row.avatar" class="avatar">
+                    <span style="margin-left: 10px">{{scope.row.books.length}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="300">
+            
+            <el-table-column label="操作" width="250">
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="handleDetails(scope.row._id)">查看详情
+                        @click="handleEdit(scope.row._id)">编辑
+                    </el-button>
+                    <el-button
+                        size="mini"
+                        @click="handleDetails(scope.row._id)">详情
                     </el-button>
                     <el-button
                         size="mini"
@@ -65,24 +78,27 @@
             }
         },
         methods: {
-            getData() {
-                this.$axios.get('/user',{pn: this.page}).then(res=>{
+            getListData() {
+                this.$axios.get('/category',{pn: this.page}).then(res=>{
                     if(res.code == 200){
                         this.count = res.count
                         this.tableData = res.data
                     }
                 })
             },
-            handleDetails(id) {
-                this.$router.push({name: 'userDetail', query: {id}})
+            handleEdit(id) {
+                this.$router.push(`/layout/changeCategory?id=${id}`)
             },
-            handleDelete(id) {
-                this.$confirm('此操作将删除一位管理员, 是否继续?', '警告', {
+            handleDetails(id) {
+                this.$router.push(`/layout/categoryDetail?id=${id}`)
+            },
+            handleDelete(id) {                                
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '警告', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$axios.post('/user/delete', {userIds: [id]}).then(res=>{
+                    this.$axios.delete('/category/delete', {ids: [id]}).then(res=>{
                         this.$message.success(res.msg)
                         this.getData()
                     })
@@ -95,24 +111,28 @@
             },
             pageChange(page) {
                 this.page = page
-                this.getData()
+                this.getListData()
             }
         },
         created() {
-            this.getData()
+            this.getListData()
         }
     }
 </script>
 
 <style scoped lang="scss">
-    .user-manage {
+    .category-manage {
         .breadcrumb {
             margin: 15px 0;
         }
 
+        h3 {
+            margin: 5px 0 15px;
+            color: #444;
+        }
         .avatar {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 100px;
         }
     }
 </style>

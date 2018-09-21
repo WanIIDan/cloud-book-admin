@@ -15,8 +15,13 @@ const components = {
   swipers: ()=>import('@/views/swiper/index'),
   addSwiper: ()=>import('@/views/swiper/addSwiper'),
   editSwiper: ()=>import('@/views/swiper/editSwiper'),
+  books: ()=>import('@/views/book/index'),
   addBook: ()=>import('@/views/book/addBook'),
-  books: ()=>import('@/views/book/index')
+  editBook: ()=>import('@/views/book/editBook'),
+  category: ()=>import('@/views/category/index'),
+  categoryDetail: ()=>import('@/views/category/categoryDetail'),
+  changeCategory: ()=>import('@/views/category/changeCategory'),
+  addCategory: ()=>import('@/views/category/addCategory')
 }
 
 export default new Router({
@@ -101,6 +106,13 @@ export default new Router({
           component: components.editSwiper
         },
         {
+          path: 'books',
+          meta: {
+            title: '图书管理页面'
+          },
+          component: components.books
+        },
+        {
           path: 'addBook',
           meta: {
             title: '添加图书'
@@ -108,12 +120,45 @@ export default new Router({
           component: components.addBook
         },
         {
-          path: 'books',
+          path: 'editBook',
+          name: 'editBook',
           meta: {
-            title: '图书管理页面'
+            title: '编辑图书'
           },
-          component: components.books
+          component: components.editBook
         },
+        {
+          path: 'category',
+          name: 'category',
+          meta: {
+            title: '分类列表'
+          },
+          component: components.category
+        },
+        {
+          path: 'addCategory',
+          name: 'addCategory',
+          meta: {
+            title: '添加分类'
+          },
+          component: components.addCategory
+        },
+        {
+          path: 'categoryDetail',
+          name: 'categoryDetail',
+          meta: {
+            title: '分类详情'
+          },
+          component: components.categoryDetail
+        },
+        {
+          path: 'changeCategory',
+          name: 'changeCategory',
+          meta: {
+            title: '修改分类'
+          },
+          component: components.changeCategory
+        }
       ]
     }
   ]

@@ -43,10 +43,16 @@
                         <el-menu-item index="/layout/addBook">添加图书</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-menu-item index="4">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">导航四</span>
-                </el-menu-item>
+                <el-submenu index="4">
+                    <template slot="title">
+                        <i class="el-icon-setting"></i>
+                        <span>分类管理</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="/layout/category">分类管理页面</el-menu-item>
+                        <el-menu-item index="/layout/addCategory">添加分类</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
             </el-menu>
         </div>
         <div class="main-content ml-200">

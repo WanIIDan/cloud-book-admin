@@ -3,9 +3,9 @@
         <h2>用户信息</h2>
         <div class="form-wrap">
             <el-form :model="formData" size="small" label-width="80px" label-position="left">
-                <el-form-item label="用户名">
+                <!-- <el-form-item label="用户名">
                     <el-input v-model="formData.username" :disabled="true"></el-input>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="昵称">
                     <el-input v-model="formData.nickname"></el-input>
                 </el-form-item>

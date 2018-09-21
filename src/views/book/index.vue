@@ -43,7 +43,7 @@
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="handleDetails">查看详情
+                        @click="handleDetails(scope.row._id)">编辑
                     </el-button>
                     <el-button
                         size="mini"
@@ -81,8 +81,8 @@
                     }
                 })
             },
-            handleDetails() {
-                this.$router.push('/layout/bookdetails')
+            handleDetails(id) {
+                this.$router.push(`/layout/editBook?bookId=${id}`)
             },
             handleDelete(id) {
                 this.$confirm('此操作将删除一本书, 是否继续?', '警告', {

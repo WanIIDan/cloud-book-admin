@@ -31,6 +31,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button 
+                    size="small"
                     type="primary" 
                     @click="handleSubmit" 
                     v-if="$route.name == 'addSwiper'"

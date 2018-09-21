@@ -27,10 +27,11 @@
                     <upload-img v-model="formData.img" class="float"></upload-img>
                 </el-form-item>
             <el-form-item label="轮播图排序">
-                    <el-input-number v-model="formData.index" :min="1"></el-input-number>
+                <el-input-number v-model="formData.index" :min="1"></el-input-number>
             </el-form-item>
             <el-form-item>
-                <el-button 
+                <el-button
+                    size="small" 
                     type="primary" 
                     @click="handleSaveEdit" 
                 >保存更改</el-button>

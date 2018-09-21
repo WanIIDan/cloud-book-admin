@@ -1,6 +1,6 @@
 <template>
     <div class="add-user">
-        <h1>添加管理员</h1> 
+        <h2>添加管理员</h2> 
         <div class="form-wrap">
             <el-form :model="formData" size="small" label-width="100px" label-position="left">
                 <el-form-item label="用户名">
@@ -24,9 +24,7 @@
                 <el-form-item label="个性签名">
                     <el-input type="textarea" v-model="formData.desc"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-button size="medium" type="primary" @click="submitData">添加</el-button>
-                </el-form-item>
+                <el-button size="small" type="primary" @click="submitData">添加</el-button>
             </el-form>
         </div>
     </div>

@@ -18,10 +18,8 @@
                 <el-form-item label="个性签名">
                     <el-input type="textarea" v-model="formData.desc"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-button size="small" type="primary" @click="handleClick">保存更改</el-button>
-                </el-form-item>
             </el-form>
+            <el-button size="small" type="primary" @click="handleClick">保存更改</el-button>
         </div>
         
     </div>
